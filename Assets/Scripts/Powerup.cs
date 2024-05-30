@@ -31,19 +31,14 @@ public class Powerup : MonoBehaviour
             Player player = other.GetComponent<Player>();
             if (player != null)
             {
-
                 if (powerupID == 0) player.TripleShotPowerUpOn();
                 if (powerupID == 1) player.SpeedPowerUpOn();
                 if (powerupID == 2) player.TripleShotPowerUpOn();
-
             }
 
-
-
+            Destroy(this.gameObject);
         }
 
-
-        Destroy(this.gameObject);
 
     }
 }

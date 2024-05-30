@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    public bool canTripleShoot = false;
+    public bool isSpeedBoostActive = false;
+    public int lives = 3;
+
     [SerializeField]
     private GameObject _laserPrefab;
 
@@ -16,9 +21,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _speed = 5f;
-
-    public bool canTripleShoot = false;
-    public bool isSpeedBoostActive = false;
 
     private float _speedMultiplier = 1.5f;
 
@@ -78,6 +80,16 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Damage()
+    {
+        lives--;
+
+        if (lives < 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Shoot()
     {
 
@@ -85,10 +97,10 @@ public class Player : MonoBehaviour
         {
             if (canTripleShoot)
             {
-                //Instantiate(_laserTripleShotPrefab, transform.position, Quaternion.identity);
-                Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.1f, 0), Quaternion.identity);
-                Instantiate(_laserPrefab, transform.position + new Vector3(0.55f, 0.1f, 0), Quaternion.identity);
-                Instantiate(_laserPrefab, transform.position + new Vector3(-0.55f, 0.1f, 0), Quaternion.identity);
+                Instantiate(_laserTripleShotPrefab, transform.position, Quaternion.identity);
+                //Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.1f, 0), Quaternion.identity);
+                //Instantiate(_laserPrefab, transform.position + new Vector3(0.55f, 0.1f, 0), Quaternion.identity);
+                //Instantiate(_laserPrefab, transform.position + new Vector3(-0.55f, 0.1f, 0), Quaternion.identity);
             }
             else
             {
