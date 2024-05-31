@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     public int lives = 3;
 
     [SerializeField]
+    private GameObject _playerExplosionPrefab;
+
+    [SerializeField]
     private GameObject _laserPrefab;
 
     [SerializeField]
@@ -87,6 +90,7 @@ public class Player : MonoBehaviour
         if (lives < 1)
         {
             Destroy(gameObject);
+            Instantiate(_playerExplosionPrefab, transform.position, Quaternion.identity);
         }
     }
 
