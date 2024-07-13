@@ -33,7 +33,7 @@ public class Powerup : MonoBehaviour
             {
                 if (powerupID == 0) player.TripleShotPowerUpOn();
                 if (powerupID == 1) player.SpeedPowerUpOn();
-                if (powerupID == 2) player.TripleShotPowerUpOn();
+                if (powerupID == 2) player.OnEnableShields();
             }
 
             Destroy(this.gameObject);

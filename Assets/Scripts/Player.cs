@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 
     public bool canTripleShoot = false;
     public bool isSpeedBoostActive = false;
+    public bool isShieldsACtive = false;
     public int lives = 3;
 
     [SerializeField]
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _shieldGameObject;
 
     [SerializeField]
     private GameObject _laserTripleShotPrefab;
@@ -32,9 +35,17 @@ public class Player : MonoBehaviour
     private float verticalLimitPositive = 6.2f;
     private float horizontalLimitPositive = 11.8f;
 
+    private UiManager _uiManager;
+
     void Start()
     {
         //transform.position = new Vector3(0,0,0);
+        _uiManager = GameObject.Find("Canvas").GetComponent<UiManager>();
+
+        if (_uiManager != null )
+        {
+            _uiManager.UpdateLives(lives);
+        }
     }
 
     void Update()
@@ -85,7 +96,14 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (isShieldsACtive == true) {
+            isShieldsACtive = false;
+            _shieldGameObject.SetActive(false);
+            return;
+        }
         lives--;
+
+        _uiManager.UpdateLives(lives);
 
         if (lives < 1)
         {
@@ -119,6 +137,12 @@ public class Player : MonoBehaviour
     {
         canTripleShoot = true;
         StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    public void OnEnableShields()
+    {
+        isShieldsACtive = true;
+        _shieldGameObject.SetActive(true);
     }
 
     public IEnumerator TripleShotPowerDownRoutine()

@@ -16,9 +16,11 @@ public class EnemyAI : MonoBehaviour
     private float verticalLimitPositive = 7.8f;
     private float horizontalLimitPositive = 12f;
 
+    private UiManager _uiManager;
+
     void Start()
     {
-        
+        _uiManager = GameObject.Find("Canvas").GetComponent<UiManager>();
     }
 
     // Update is called once per frame
@@ -26,7 +28,7 @@ public class EnemyAI : MonoBehaviour
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
-        if(transform.position.y < verticalLimitNegative)
+        if (transform.position.y < verticalLimitNegative)
         {
             float randomXaxis = Random.Range(horizontalLimitNegative, horizontalLimitPositive);
             transform.position = new Vector3(randomXaxis, 7, 0);
@@ -36,20 +38,22 @@ public class EnemyAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Laser")
+        if (collision.tag == "Laser")
         {
-            if(collision.transform.parent != null)
+            if (collision.transform.parent != null)
             {
                 Destroy(collision.transform.parent.gameObject);
             }
             Destroy(collision.gameObject);
             Instantiate(_enemyExplosionPrefab, transform.position, Quaternion.identity);
+
+            _uiManager.UpdateScore();
             Destroy(this.gameObject);
         }
-        if(collision.tag == "Player")
+        if (collision.tag == "Player")
         {
             Player player = collision.GetComponent<Player>();
-            if(player != null)
+            if (player != null)
             {
                 player.Damage();
             }
