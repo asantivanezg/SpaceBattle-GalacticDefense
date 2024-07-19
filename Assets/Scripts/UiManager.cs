@@ -9,6 +9,8 @@ public class UiManager : MonoBehaviour
 
     public Sprite[] lives;
     public Image livesImagesDisplay;
+    public GameObject titleScreen;
+
     public int score;
     public Text scoreText;
 
@@ -21,5 +23,16 @@ public class UiManager : MonoBehaviour
     {
         score += 10;
         scoreText.text = "Score: " + score;
+    }
+
+    public void ShowTitleScreen()
+    {
+        titleScreen.SetActive(true);
+    }
+
+    public void HideTitleScreen()
+    {
+        titleScreen?.SetActive(false);
+        scoreText.text = "Score: ";
     }
 }

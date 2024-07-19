@@ -36,15 +36,24 @@ public class Player : MonoBehaviour
     private float horizontalLimitPositive = 11.8f;
 
     private UiManager _uiManager;
+    private GameManager _gameManager;
+    private SpawnManager _spawnManager;
 
     void Start()
     {
         //transform.position = new Vector3(0,0,0);
         _uiManager = GameObject.Find("Canvas").GetComponent<UiManager>();
 
-        if (_uiManager != null )
+        if (_uiManager != null)
         {
             _uiManager.UpdateLives(lives);
+        }
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+
+        if (_spawnManager != null)
+        {
+            _spawnManager.StartSpawnRoutines();
         }
     }
 
@@ -96,7 +105,8 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if (isShieldsACtive == true) {
+        if (isShieldsACtive == true)
+        {
             isShieldsACtive = false;
             _shieldGameObject.SetActive(false);
             return;
@@ -108,6 +118,8 @@ public class Player : MonoBehaviour
         if (lives < 1)
         {
             Destroy(gameObject);
+            _gameManager.gameOver = true;
+            _uiManager.ShowTitleScreen();
             Instantiate(_playerExplosionPrefab, transform.position, Quaternion.identity);
         }
     }
