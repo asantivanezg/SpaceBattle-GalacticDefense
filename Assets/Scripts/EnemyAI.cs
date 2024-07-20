@@ -13,10 +13,13 @@ public class EnemyAI : MonoBehaviour
 
     private float verticalLimitNegative = -7.8f;
     private float horizontalLimitNegative = -12f;
-    private float verticalLimitPositive = 7.8f;
+    // private float verticalLimitPositive = 7.8f;
     private float horizontalLimitPositive = 12f;
 
     private UiManager _uiManager;
+
+    [SerializeField]
+    private AudioClip _clip;
 
     void Start()
     {
@@ -46,8 +49,8 @@ public class EnemyAI : MonoBehaviour
             }
             Destroy(collision.gameObject);
             Instantiate(_enemyExplosionPrefab, transform.position, Quaternion.identity);
-
             _uiManager.UpdateScore();
+            AudioSource.PlayClipAtPoint(_clip, Camera.main.transform.position);
             Destroy(this.gameObject);
         }
         if (collision.tag == "Player")
@@ -58,9 +61,10 @@ public class EnemyAI : MonoBehaviour
                 player.Damage();
             }
             Instantiate(_enemyExplosionPrefab, transform.position, Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_clip, Camera.main.transform.position);
             Destroy(this.gameObject);
         }
     }
 
-   
+
 }

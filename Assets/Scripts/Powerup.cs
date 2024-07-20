@@ -10,7 +10,9 @@ public class Powerup : MonoBehaviour
     [SerializeField]
     private int powerupID; // 0 =  triple shoot, 1 = speed boost, 2 = shields
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private AudioClip _clip;
+
     void Start()
     {
 
@@ -21,7 +23,7 @@ public class Powerup : MonoBehaviour
     {
         transform.Translate(Vector3.down * Time.deltaTime * _speed * Time.deltaTime);
 
-        if(transform.position.y < -7f)
+        if (transform.position.y < -7f)
         {
             Destroy(gameObject);
         }
@@ -34,6 +36,9 @@ public class Powerup : MonoBehaviour
         if (other.tag == "Player")
         {
             Player player = other.GetComponent<Player>();
+
+            AudioSource.PlayClipAtPoint(_clip, Camera.main.transform.position, 1);
+
             if (player != null)
             {
                 if (powerupID == 0) player.TripleShotPowerUpOn();

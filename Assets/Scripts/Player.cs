@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     private float _canFire = 0.0f;
 
     [SerializeField]
+    private GameObject[] _engines;
+
+    [SerializeField]
     private float _speed = 5f;
 
     private float _speedMultiplier = 1.5f;
@@ -38,11 +41,14 @@ public class Player : MonoBehaviour
     private UiManager _uiManager;
     private GameManager _gameManager;
     private SpawnManager _spawnManager;
+    private AudioSource _audioSource;
 
+    private int hitCount = 0;
     void Start()
     {
         //transform.position = new Vector3(0,0,0);
         _uiManager = GameObject.Find("Canvas").GetComponent<UiManager>();
+
 
         if (_uiManager != null)
         {
@@ -55,6 +61,9 @@ public class Player : MonoBehaviour
         {
             _spawnManager.StartSpawnRoutines();
         }
+
+        _audioSource = GetComponent<AudioSource>();
+        hitCount = 0;
     }
 
     void Update()
@@ -105,12 +114,26 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+
         if (isShieldsACtive == true)
         {
             isShieldsACtive = false;
             _shieldGameObject.SetActive(false);
             return;
         }
+
+        hitCount++;
+
+        if (hitCount == 1)
+        {
+            _engines[0].SetActive(true);
+        }
+
+        if (hitCount == 2)
+        {
+            _engines[1].SetActive(true);
+        }
+
         lives--;
 
         _uiManager.UpdateLives(lives);
@@ -129,6 +152,7 @@ public class Player : MonoBehaviour
 
         if (Time.time > _canFire)
         {
+            _audioSource.Play();
             if (canTripleShoot)
             {
                 Instantiate(_laserTripleShotPrefab, transform.position, Quaternion.identity);

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3030470715214622244}
   - component: {fileID: 4534271959273087333}
   - component: {fileID: 2198744634982410530}
+  - component: {fileID: 1205896117180016428}
   m_Layer: 0
   m_Name: Triple_Shot_Powerup
   m_TagString: Untagged
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 200
   powerupID: 0
+  _clip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
 --- !u!58 &2198744634982410530
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135,3 +137,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.15}
   serializedVersion: 2
   m_Radius: 1.3945427
+--- !u!95 &1205896117180016428
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8269724809789355893}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bd43ba74687084b48a4cf25660dc6aee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
